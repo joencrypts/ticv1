@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
@@ -10,6 +11,25 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 import GradualBlur from "@/components/ui/gradual-blur";
 
 const Index = () => {
+  const [isNearFooter, setIsNearFooter] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      
+      // Check if within 300px of the bottom
+      const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
+      setIsNearFooter(distanceFromBottom < 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen w-full bg-transparent overflow-x-hidden relative">
       <ScrollProgress />
@@ -25,17 +45,19 @@ const Index = () => {
         <Footer />
       </main>
       
-      {/* Bottom fade blur */}
-      <GradualBlur
-        target="page"
-        position="bottom"
-        height="8rem"
-        strength={2}
-        divCount={5}
-        curve="bezier"
-        exponential={true}
-        opacity={1}
-      />
+      {/* Bottom fade blur - hide when near footer */}
+      {!isNearFooter && (
+        <GradualBlur
+          target="page"
+          position="bottom"
+          height="8rem"
+          strength={2}
+          divCount={5}
+          curve="bezier"
+          exponential={true}
+          opacity={1}
+        />
+      )}
     </div>
   );
 };
