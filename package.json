@@ -11,10 +11,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@21st-dev/magic": "^0.1.0",
-    "@21st-extension/react": "^0.5.14",
-    "@21st-extension/toolbar": "^0.5.14",
-    "@21st-extension/toolbar-react": "^0.5.14",
     "@fontsource/poppins": "^5.2.7",
     "@fontsource/roboto-flex": "^5.2.8",
     "@hookform/resolvers": "^3.10.0",

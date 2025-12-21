@@ -9,29 +9,10 @@ import Apply from "./pages/Apply";
 import NotFound from "./pages/NotFound";
 
 import Plasma from "@/components/ui/Plasma";
-import { initToolbar } from '@21st-extension/toolbar';
-import { useEffect } from 'react';
 
 const queryClient = new QueryClient();
 
-// Define your toolbar configuration
-const stagewiseConfig = {
-  plugins: [],
-};
-
-// Initialize the toolbar when your app starts
-// Only initialize once and only in development mode
-function setupStagewise() {
-  if (import.meta.env.DEV) {
-    initToolbar(stagewiseConfig);
-  }
-}
-
 const App = () => {
-  // Initialize toolbar on mount
-  useEffect(() => {
-    setupStagewise();
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
