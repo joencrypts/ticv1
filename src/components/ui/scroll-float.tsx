@@ -48,7 +48,7 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
 
     const charElements = el.querySelectorAll('.inline-block');
 
-    gsap.fromTo(
+    const scrollTrigger = gsap.fromTo(
       charElements,
       {
         willChange: 'opacity, transform',
@@ -75,6 +75,11 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
         }
       }
     );
+
+    return () => {
+      scrollTrigger.scrollTrigger?.kill();
+      scrollTrigger.kill();
+    };
   }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
@@ -84,5 +89,5 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
   );
 };
 
-export default ScrollFloat;
+export default React.memo(ScrollFloat);
 

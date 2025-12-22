@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['ROSSTEN', 'sans-serif'],
+        display: ['Argent', 'sans-serif'],
         body: ['Karina', 'sans-serif'],
       },
       colors: {

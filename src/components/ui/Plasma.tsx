@@ -110,7 +110,7 @@ const Plasma: React.FC<PlasmaProps> = ({
       webgl: 2,
       alpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      dpr: Math.min(window.devicePixelRatio || 1, 1.5), // Reduce DPR for better performance
     });
 
     const gl = renderer.gl;
@@ -140,18 +140,26 @@ const Plasma: React.FC<PlasmaProps> = ({
 
     const mesh = new Mesh(gl, { geometry, program });
 
+    let mouseMoveTimeout: ReturnType<typeof setTimeout> | null = null;
     const handleMouseMove = (e: MouseEvent) => {
       if (!mouseInteractive || !containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      mousePos.current.x = e.clientX - rect.left;
-      mousePos.current.y = e.clientY - rect.top;
-      const mouseUniform = program.uniforms.uMouse.value as Float32Array;
-      mouseUniform[0] = mousePos.current.x;
-      mouseUniform[1] = mousePos.current.y;
+      
+      // Throttle mouse updates
+      if (mouseMoveTimeout) return;
+      
+      mouseMoveTimeout = setTimeout(() => {
+        const rect = containerRef.current!.getBoundingClientRect();
+        mousePos.current.x = e.clientX - rect.left;
+        mousePos.current.y = e.clientY - rect.top;
+        const mouseUniform = program.uniforms.uMouse.value as Float32Array;
+        mouseUniform[0] = mousePos.current.x;
+        mouseUniform[1] = mousePos.current.y;
+        mouseMoveTimeout = null;
+      }, 16); // ~60fps for mouse updates
     };
 
     if (mouseInteractive) {
-      containerRef.current.addEventListener("mousemove", handleMouseMove);
+      containerRef.current.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
 
     const setSize = () => {
@@ -170,25 +178,35 @@ const Plasma: React.FC<PlasmaProps> = ({
     setSize();
 
     let raf = 0;
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Reduce from 60fps to 30fps
+    const frameInterval = 1000 / targetFPS;
     const t0 = performance.now();
+    
     const loop = (t: number) => {
-      const timeValue = (t - t0) * 0.001;
+      const elapsed = t - lastFrameTime;
+      
+      if (elapsed >= frameInterval) {
+        const timeValue = (t - t0) * 0.001;
 
-      if (direction === "pingpong") {
-        const pingpongDuration = 10;
-        const segmentTime = timeValue % pingpongDuration;
-        const isForward = Math.floor(timeValue / pingpongDuration) % 2 === 0;
-        const u = segmentTime / pingpongDuration;
-        const smooth = u * u * (3 - 2 * u);
-        const pingpongTime = isForward ? smooth * pingpongDuration : (1 - smooth) * pingpongDuration;
-        (program.uniforms.uDirection as any).value = 1.0;
-        (program.uniforms.iTime as any).value = pingpongTime;
-      } else {
-        (program.uniforms.uDirection as any).value = directionMultiplier;
-        (program.uniforms.iTime as any).value = timeValue;
+        if (direction === "pingpong") {
+          const pingpongDuration = 10;
+          const segmentTime = timeValue % pingpongDuration;
+          const isForward = Math.floor(timeValue / pingpongDuration) % 2 === 0;
+          const u = segmentTime / pingpongDuration;
+          const smooth = u * u * (3 - 2 * u);
+          const pingpongTime = isForward ? smooth * pingpongDuration : (1 - smooth) * pingpongDuration;
+          (program.uniforms.uDirection as any).value = 1.0;
+          (program.uniforms.iTime as any).value = pingpongTime;
+        } else {
+          (program.uniforms.uDirection as any).value = directionMultiplier;
+          (program.uniforms.iTime as any).value = timeValue;
+        }
+
+        renderer.render({ scene: mesh });
+        lastFrameTime = t - (elapsed % frameInterval);
       }
-
-      renderer.render({ scene: mesh });
+      
       raf = requestAnimationFrame(loop);
     };
 
@@ -197,6 +215,9 @@ const Plasma: React.FC<PlasmaProps> = ({
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      if (mouseMoveTimeout) {
+        clearTimeout(mouseMoveTimeout);
+      }
       if (mouseInteractive && containerRef.current) {
         containerRef.current.removeEventListener("mousemove", handleMouseMove);
       }

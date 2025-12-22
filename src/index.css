@@ -3,10 +3,19 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: 'Argent';
+  src: url('/font/argent.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Optimize font loading */
+}
+
+@font-face {
   font-family: 'ROSSTEN';
   src: url('/font/ROSSTEN.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap; /* Optimize font loading */
 }
 
 @font-face {
@@ -14,6 +23,7 @@
   src: url('/font/Karina.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap; /* Optimize font loading */
 }
 
 @layer base {
@@ -65,7 +75,7 @@
     --shadow-subtle: 0 4px 20px hsl(0 0% 0% / 0.2);
 
     /* New Fonts */
-    --font-display: 'ROSSTEN', sans-serif;
+    --font-display: 'Argent', sans-serif;
     --font-body: 'Karina', sans-serif;
 
     --sidebar-background: 0 0% 5%;

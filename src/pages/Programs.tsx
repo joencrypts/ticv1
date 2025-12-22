@@ -48,7 +48,7 @@ const Programs = () => {
     <div className="min-h-screen w-full bg-gradient-to-br from-black to-gray-900 overflow-x-hidden">
       <Navigation />
       
-      <main className="flex flex-col w-full items-center px-4 pt-20 pb-0 gap-8">
+      <main className="flex flex-col w-full items-center px-3 sm:px-4 pt-16 sm:pt-20 pb-0 gap-6 sm:gap-8">
         {/* Animated Background Elements */}
         <div className="fixed inset-0 -z-10 overflow-hidden">
           <div className="absolute inset-0 bg-grid-white/[0.05] [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
@@ -57,27 +57,27 @@ const Programs = () => {
         </div>
         
         {/* Intro Section */}
-        <div className="w-full flex flex-col justify-center px-6 md:px-12 py-12" data-aos="fade-up">
-            <div className="max-w-xl mx-auto text-center space-y-6">
-                <h1 className="font-display text-5xl md:text-7xl text-foreground mb-2 uppercase tracking-wide animate-fade-in">
+        <div className="w-full flex flex-col justify-center px-4 sm:px-6 md:px-12 py-8 sm:py-10 md:py-12" data-aos="fade-up">
+            <div className="max-w-xl mx-auto text-center space-y-4 sm:space-y-6">
+                <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-foreground mb-2 uppercase tracking-wide animate-fade-in">
                   Programs
                 </h1>
-                <p className="text-lg text-muted-foreground max-w-md mx-auto font-light leading-relaxed">
+                <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-md mx-auto font-light leading-relaxed px-2">
                   Curated tracks for your entrepreneurial journey. Choose your path to success.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-3 sm:pt-4 justify-center px-2">
                   <Link 
                     to="/apply" 
-                    className="group relative overflow-hidden px-6 py-3 bg-transparent border border-white/20 rounded-md text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
+                    className="group relative overflow-hidden px-4 sm:px-6 py-2.5 sm:py-3 bg-transparent border border-white/20 rounded-md text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <span>Start Application</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                     <span className="absolute inset-0 bg-white/5 group-hover:opacity-0 transition-opacity duration-300"></span>
                   </Link>
                   <Link 
                     to="#founder" 
-                    className="px-6 py-3 text-sm uppercase tracking-widest text-white/60 hover:text-white transition-colors"
+                    className="px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm uppercase tracking-widest text-white/60 hover:text-white transition-colors text-center"
                   >
                     View Tracks ↓
                   </Link>
@@ -86,7 +86,7 @@ const Programs = () => {
         </div>
 
         {/* Program Cards */}
-        <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl justify-center items-stretch pb-12">
+        <div className="flex flex-col md:flex-row gap-6 sm:gap-8 w-full max-w-6xl justify-center items-stretch pb-8 sm:pb-12 px-2 sm:px-0">
         {programs.map((program, index) => (
             <div 
               key={program.id} 
@@ -104,45 +104,45 @@ const Programs = () => {
               >
                 <div className="absolute inset-0.5 bg-gradient-to-br from-gray-900 to-black rounded-xl transition-all duration-700 group-hover:opacity-90"></div>
                 
-                    <div className="relative z-10 h-full bg-gradient-to-br from-gray-900 to-black/90 p-8 rounded-xl flex flex-col">
+                    <div className="relative z-10 h-full bg-gradient-to-br from-gray-900 to-black/90 p-5 sm:p-6 md:p-8 rounded-xl flex flex-col">
                   {program.highlight && (
-                        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-gray-400 to-gray-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">
+                        <div className="absolute -top-2 sm:-top-3 -right-2 sm:-right-3 bg-gradient-to-r from-gray-400 to-gray-600 text-white text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full animate-pulse">
                       POPULAR
                     </div>
                   )}
                   
-                  <div className="mb-8 space-y-4">
-                        <p className="text-xs uppercase tracking-widest text-gray-400 font-medium">
+                  <div className="mb-6 sm:mb-8 space-y-3 sm:space-y-4">
+                        <p className="text-[10px] sm:text-xs uppercase tracking-widest text-gray-400 font-medium">
                       {program.tagline}
                     </p>
-                    <h2 className="font-display text-3xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                    <h2 className="font-display text-2xl sm:text-3xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
                       {program.name}
                     </h2>
-                    <p className="text-sm text-gray-300 font-light leading-relaxed">
+                    <p className="text-xs sm:text-sm text-gray-300 font-light leading-relaxed">
                       {program.description}
                     </p>
                   </div>
 
-                  <div className="mb-8 p-6 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-lg border border-gray-700/50">
+                  <div className="mb-6 sm:mb-8 p-4 sm:p-6 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-lg border border-gray-700/50">
                     <div className="flex items-end gap-2">
-                      <span className="font-display text-4xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                      <span className="font-display text-3xl sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
                         {program.price}
                       </span>
-                      <span className="text-sm text-gray-400 mb-1">
+                      <span className="text-xs sm:text-sm text-gray-400 mb-1">
                         {program.period}
                       </span>
                     </div>
-                        <div className={`h-1 w-16 rounded-full mt-2 ${program.highlight ? 'bg-gradient-to-r from-gray-400 to-gray-600' : 'bg-gray-700'}`}></div>
+                        <div className={`h-1 w-12 sm:w-16 rounded-full mt-2 ${program.highlight ? 'bg-gradient-to-r from-gray-400 to-gray-600' : 'bg-gray-700'}`}></div>
                   </div>
 
-                      <ul className="space-y-3 mb-10 flex-grow">
+                      <ul className="space-y-2 sm:space-y-3 mb-8 sm:mb-10 flex-grow">
                     {program.features.map((feature, i) => (
                       <li 
                         key={feature} 
-                        className="flex items-start gap-3 text-sm font-light text-gray-300 group-hover:text-white transition-colors duration-300"
+                        className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm font-light text-gray-300 group-hover:text-white transition-colors duration-300"
                         style={{ transitionDelay: `${i * 50}ms` }}
                       >
-                            <Check className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -150,7 +150,7 @@ const Programs = () => {
 
                   <Link
                     to={`/apply?track=${program.id}`}
-                    className={`block w-full text-center text-sm uppercase tracking-wider py-4 rounded-lg font-medium transition-all duration-300 ${
+                    className={`block w-full text-center text-xs sm:text-sm uppercase tracking-wider py-3 sm:py-4 rounded-lg font-medium transition-all duration-300 ${
                       program.highlight
                             ? 'bg-gradient-to-r from-gray-400 to-gray-600 text-white hover:shadow-lg hover:shadow-gray-500/30'
                         : 'bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20'

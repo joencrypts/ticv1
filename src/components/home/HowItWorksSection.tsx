@@ -83,36 +83,36 @@ const HowItWorksSection = () => {
       />
       
       {/* Content Layer */}
-      <div ref={contentRef} className="relative z-10 w-full max-w-4xl mx-auto px-6 py-24">
-        <h2 className="text-5xl md:text-7xl font-bold font-display tracking-wide text-center mb-24 bg-[linear-gradient(110deg,#939393,45%,#ffffff,55%,#939393)] bg-[length:200%_100%] animate-shine bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+      <div ref={contentRef} className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-24">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold font-display tracking-wide text-center mb-12 sm:mb-16 md:mb-24 px-2 bg-[linear-gradient(110deg,#939393,45%,#ffffff,55%,#939393)] bg-[length:200%_100%] animate-shine bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
           HOW IT WORKS
         </h2>
         
-        <div className="space-y-16">
+        <div className="space-y-10 sm:space-y-12 md:space-y-16">
           {/* Step 1 */}
-          <div className="how-step cursor-target flex flex-col md:flex-row items-start md:items-center gap-6 group">
-            <div className="text-6xl md:text-8xl font-bold text-white font-display">01</div>
+          <div className="how-step cursor-target flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 group">
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white font-display">01</div>
             <div className="flex-1">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Apply</h3>
-              <p className="text-lg text-gray-400 font-light">Your application is reviewed.</p>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Apply</h3>
+              <p className="text-base sm:text-lg text-gray-400 font-light">Your application is reviewed.</p>
             </div>
           </div>
 
           {/* Step 2 */}
-          <div className="how-step cursor-target flex flex-col md:flex-row items-start md:items-center gap-6 group">
-            <div className="text-6xl md:text-8xl font-bold text-white font-display">02</div>
+          <div className="how-step cursor-target flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 group">
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white font-display">02</div>
             <div className="flex-1">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Get Access</h3>
-              <p className="text-lg text-gray-400 font-light">You're onboarded to the right tier.</p>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Get Access</h3>
+              <p className="text-base sm:text-lg text-gray-400 font-light">You're onboarded to the right tier.</p>
             </div>
           </div>
 
           {/* Step 3 */}
-          <div className="how-step cursor-target flex flex-col md:flex-row items-start md:items-center gap-6 group">
-            <div className="text-6xl md:text-8xl font-bold text-white font-display">03</div>
+          <div className="how-step cursor-target flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 group">
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white font-display">03</div>
             <div className="flex-1">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Execute</h3>
-              <p className="text-lg text-gray-400 font-light">Use frameworks and planning tools to run the year.</p>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Execute</h3>
+              <p className="text-base sm:text-lg text-gray-400 font-light">Use frameworks and planning tools to run the year.</p>
             </div>
           </div>
         </div>
@@ -135,19 +135,19 @@ const HowItWorksSection = () => {
             <div ref={radialLayerRef} className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,black_70%)]" />
           </div>
 
-          <div className="relative z-10 flex flex-col items-center justify-center text-center">
-            <p className="text-white text-3xl md:text-4xl font-light tracking-widest uppercase mb-8 animate-pulse">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center px-4">
+            <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-widest uppercase mb-6 sm:mb-8 animate-pulse">
               How It Works
             </p>
             <ShimmerButton 
-              className="cursor-target group/btn px-10 py-5 text-lg font-medium tracking-wide relative mx-auto"
+              className="cursor-target group/btn px-6 sm:px-8 md:px-10 py-4 sm:py-5 text-sm sm:text-base md:text-lg font-medium tracking-wide relative mx-auto w-full sm:w-auto"
               background="transparent"
             >
               {/* Logo - visible by default, hidden on hover */}
               <img 
                 src="/logo/ticlogo.svg" 
                 alt="TIC Logo" 
-                className="h-8 w-auto transition-all duration-300 opacity-100 scale-100 group-hover/btn:opacity-0 group-hover/btn:scale-75 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                className="h-6 sm:h-8 w-auto transition-all duration-300 opacity-100 scale-100 group-hover/btn:opacity-0 group-hover/btn:scale-75 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               />
               {/* Text - hidden by default, revealed on hover */}
               <span className="transition-all duration-300 opacity-0 scale-75 group-hover/btn:opacity-100 group-hover/btn:scale-100">

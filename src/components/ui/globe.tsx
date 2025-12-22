@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import createGlobe, { COBEOptions } from "cobe"
-import { useMotionValue, useSpring } from "framer-motion"
+import { useMotionValue, useSpring } from "motion/react"
 
 import { cn } from "@/lib/utils"
 
@@ -15,13 +15,13 @@ const GLOBE_CONFIG: COBEOptions = {
   devicePixelRatio: 2,
   phi: 0,
   theta: 0.3,
-  dark: 1,
+  dark: 1, // Dark mode (black background)
   diffuse: 0.4,
   mapSamples: 16000,
   mapBrightness: 1.2,
-  baseColor: [0.7, 0.7, 0.7],
-  markerColor: [1, 1, 1],
-  glowColor: [0.5, 0.5, 0.5],
+  baseColor: [0.9, 0.9, 0.9], // White/light base color (shows on dark background)
+  markerColor: [0.75, 0.75, 0.75], // Silver markers (changed from orange)
+  glowColor: [0.8, 0.8, 0.8], // Silver/white glow
   markers: [
     { location: [14.5995, 120.9842], size: 0.03 },
     { location: [19.076, 72.8777], size: 0.1 },
@@ -126,5 +126,4 @@ export function Globe({
     </div>
   )
 }
-
 

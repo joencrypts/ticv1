@@ -222,5 +222,5 @@ const CardSwap: React.FC<CardSwapProps> = ({
   );
 };
 
-export default CardSwap;
+export default React.memo(CardSwap);
 

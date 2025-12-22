@@ -14,17 +14,26 @@ const Index = () => {
   const [isNearFooter, setIsNearFooter] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      
-      // Check if within 300px of the bottom
-      const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
-      setIsNearFooter(distanceFromBottom < 300);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const windowHeight = window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight;
+          const scrollTop = window.scrollY || document.documentElement.scrollTop;
+          
+          // Check if within 300px of the bottom
+          const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
+          setIsNearFooter(distanceFromBottom < 300);
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Check initial position
 
     return () => window.removeEventListener("scroll", handleScroll);

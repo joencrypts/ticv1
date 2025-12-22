@@ -85,7 +85,14 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
 
     createSpinTimeline();
 
+    let lastTickerTime = 0;
+    const tickerInterval = 16; // ~60fps max
+    
     const tickerFn = () => {
+      const now = performance.now();
+      if (now - lastTickerTime < tickerInterval) return;
+      lastTickerTime = now;
+      
       if (!targetCornerPositionsRef.current || !cursorRef.current || !cornersRef.current) {
         return;
       }

@@ -83,32 +83,38 @@ const useMorphingText = (texts: string[], delay: number = 0) => {
 
   useEffect(() => {
     let animationFrameId: number
+    let lastFrameTime = performance.now()
+    const targetFPS = 30 // Reduce from 60fps to 30fps for morphing
+    const frameInterval = 1000 / targetFPS
 
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate)
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - lastFrameTime
+      
+      if (elapsed >= frameInterval) {
+        const dt = elapsed / 1000
+        timeRef.current = new Date()
 
-      const newTime = new Date()
-      const dt = (newTime.getTime() - timeRef.current.getTime()) / 1000
-      timeRef.current = newTime
-
-      // Handle initial delay
-      if (!hasStartedRef.current) {
-        initialDelayRef.current -= dt
-        if (initialDelayRef.current <= 0) {
-          hasStartedRef.current = true
-          // Start morphing immediately after delay
-          cooldownRef.current = 0
+        // Handle initial delay
+        if (!hasStartedRef.current) {
+          initialDelayRef.current -= dt
+          if (initialDelayRef.current <= 0) {
+            hasStartedRef.current = true
+            // Start morphing immediately after delay
+            cooldownRef.current = 0
+          }
+        } else {
+          cooldownRef.current -= dt
+          if (cooldownRef.current <= 0) doMorph()
+          else doCooldown()
         }
-        return
+        
+        lastFrameTime = currentTime - (elapsed % frameInterval)
       }
-
-      cooldownRef.current -= dt
-
-      if (cooldownRef.current <= 0) doMorph()
-      else doCooldown()
+      
+      animationFrameId = requestAnimationFrame(animate)
     }
 
-    animate()
+    animationFrameId = requestAnimationFrame(animate)
     return () => {
       cancelAnimationFrame(animationFrameId)
     }
