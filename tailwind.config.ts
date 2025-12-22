@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Argent', 'sans-serif'],
-        body: ['Karina', 'sans-serif'],
+        display: ['CustomFont', 'sans-serif'],
+        body: ['CustomFont', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

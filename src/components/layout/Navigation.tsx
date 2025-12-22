@@ -21,7 +21,7 @@ const Navigation = () => {
         position="right"
         items={menuItems}
         socialItems={socialItems}
-        displaySocials
+        displaySocials={false}
         displayItemNumbering
         menuButtonColor="#ffffff"
         openMenuButtonColor="#000000"

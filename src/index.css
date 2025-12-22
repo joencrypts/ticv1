@@ -3,27 +3,35 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Argent';
-  src: url('/font/argent.otf') format('opentype');
-  font-weight: normal;
+  font-family: 'CustomFont';
+  src: url('/font/thin.otf') format('opentype');
+  font-weight: 100;
   font-style: normal;
-  font-display: swap; /* Optimize font loading */
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'ROSSTEN';
-  src: url('/font/ROSSTEN.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'CustomFont';
+  src: url('/font/light.otf') format('opentype');
+  font-weight: 300;
   font-style: normal;
-  font-display: swap; /* Optimize font loading */
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Karina';
-  src: url('/font/Karina.ttf') format('truetype');
-  font-weight: normal;
+  font-family: 'CustomFont';
+  src: url('/font/regular.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
-  font-display: swap; /* Optimize font loading */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('/font/demibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @layer base {
@@ -75,8 +83,8 @@
     --shadow-subtle: 0 4px 20px hsl(0 0% 0% / 0.2);
 
     /* New Fonts */
-    --font-display: 'Argent', sans-serif;
-    --font-body: 'Karina', sans-serif;
+    --font-display: 'CustomFont', sans-serif;
+    --font-body: 'CustomFont', sans-serif;
 
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 100%;
