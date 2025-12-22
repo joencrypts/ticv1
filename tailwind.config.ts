@@ -143,6 +143,16 @@ export default {
             opacity: "0",
           },
         },
+        ripple: {
+          "0%": {
+            transform: "translate(-50%, -50%) scale(0.8)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translate(-50%, -50%) scale(2.4)",
+            opacity: "0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -157,6 +167,7 @@ export default {
         "shimmer-slide": "shimmer-slide var(--speed) ease-in-out infinite alternate",
         "spin-around": "spin-around calc(var(--speed) * 2) infinite linear",
         rippling: "rippling 600ms ease-out",
+        ripple: "ripple 3400ms ease-out infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

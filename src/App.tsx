@@ -13,7 +13,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 // Lazy load heavy components
-const Plasma = lazy(() => import("@/components/ui/Plasma").then(m => ({ default: m.default })));
+const Ripple = lazy(() => import("@/components/ui/ripple").then(m => ({ default: m.Ripple })));
 
 const queryClient = new QueryClient();
 
@@ -51,14 +51,7 @@ const App = () => {
       <TooltipProvider>
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, overflow: 'hidden' }}>
           <Suspense fallback={null}>
-            <Plasma 
-              color="#e0e0e0"
-              speed={0.6}
-              direction="forward"
-              scale={1.1}
-              opacity={0.8}
-              mouseInteractive={true}
-            />
+            <Ripple />
           </Suspense>
         </div>
         <Toaster />
