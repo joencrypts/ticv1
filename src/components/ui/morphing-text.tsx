@@ -36,15 +36,15 @@ const useMorphingText = (texts: string[], delay: number = 0) => {
       const [current1, current2] = [text1Ref.current, text2Ref.current]
       if (!current1 || !current2) return
 
-      current2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`
-      current2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`
+      // Use blur effect for text transition
+      const blurAmount = Math.max(0, (1 - fraction) * 10)
+      current2.style.filter = `blur(${blurAmount}px)`
+      current2.style.opacity = `${fraction * 100}%`
 
       const invertedFraction = 1 - fraction
-      current1.style.filter = `blur(${Math.min(
-        8 / invertedFraction - 8,
-        100
-      )}px)`
-      current1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`
+      const blurAmount1 = Math.max(0, invertedFraction * 10)
+      current1.style.filter = `blur(${blurAmount1}px)`
+      current1.style.opacity = `${invertedFraction * 100}%`
 
       current1.textContent = texts[textIndexRef.current % texts.length]
       current2.textContent = texts[(textIndexRef.current + 1) % texts.length]
@@ -175,13 +175,12 @@ export const MorphingText: React.FC<MorphingTextProps> = ({
 }) => (
   <div
     className={cn(
-      "relative mx-auto w-full text-center leading-none font-bold [filter:url(#threshold)_blur(0.6px)] overflow-visible",
+      "relative mx-auto w-full text-center leading-none font-bold overflow-visible",
       className
     )}
     style={{ minHeight: 'inherit' }}
   >
     <Texts texts={texts} delay={delay} />
-    <SvgFilters />
   </div>
 )
 

@@ -97,6 +97,7 @@
   }
   .theme {
     --animate-ripple: ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite;
+    --animate-grid: grid 15s linear infinite;
   }
 }
 
@@ -256,6 +257,14 @@
     }
   50% {
     transform: translate(-50%, -50%) scale(0.9);
+    }
+  }
+  @keyframes grid {
+  0% {
+    transform: translateY(-50%);
+    }
+  100% {
+    transform: translateY(0);
     }
   }
 }

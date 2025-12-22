@@ -153,6 +153,14 @@ export default {
             opacity: "0",
           },
         },
+        grid: {
+          "0%": {
+            transform: "translateY(-20%)",
+          },
+          "100%": {
+            transform: "translateY(0)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -168,6 +176,7 @@ export default {
         "spin-around": "spin-around calc(var(--speed) * 2) infinite linear",
         rippling: "rippling 600ms ease-out",
         ripple: "ripple 3400ms ease-out infinite",
+        grid: "grid 15s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

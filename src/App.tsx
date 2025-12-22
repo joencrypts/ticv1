@@ -13,7 +13,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 // Lazy load heavy components
-const Ripple = lazy(() => import("@/components/ui/ripple").then(m => ({ default: m.Ripple })));
+const RetroGrid = lazy(() => import("@/components/ui/retro-grid").then(m => ({ default: m.RetroGrid })));
 
 const queryClient = new QueryClient();
 
@@ -49,9 +49,13 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, overflow: 'hidden' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, overflow: 'hidden', backgroundColor: '#000000' }}>
           <Suspense fallback={null}>
-            <Ripple />
+            <RetroGrid 
+              lightLineColor="white"
+              darkLineColor="white"
+              opacity={0.3}
+            />
           </Suspense>
         </div>
         <Toaster />
