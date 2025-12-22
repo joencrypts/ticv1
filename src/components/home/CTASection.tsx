@@ -5,8 +5,8 @@ const CTASection = () => {
   return (
     <section className="min-h-[70vh] sm:min-h-[80vh] w-full flex items-center justify-center p-4 sm:p-6 relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
       {/* Globe background - positioned at bottom middle, 3/4 visible on mobile */}
-      <div className="absolute inset-0 flex items-end justify-center opacity-30 sm:opacity-40 pointer-events-none overflow-hidden">
-        <Globe className="max-w-[700px] sm:max-w-[800px] md:max-w-[900px] lg:max-w-[1000px] xl:max-w-[1100px] translate-y-[25%] sm:translate-y-0 sm:pb-8 md:pb-12 lg:pb-16" />
+      <div className="absolute inset-0 flex items-end justify-center opacity-50 sm:opacity-40 pointer-events-none overflow-hidden">
+        <Globe className="max-w-[600px] sm:max-w-[800px] md:max-w-[900px] lg:max-w-[1000px] xl:max-w-[1100px] translate-y-[25%] sm:translate-y-0 sm:pb-8 md:pb-12 lg:pb-16" />
       </div>
       
       {/* Radial gradient overlay */}

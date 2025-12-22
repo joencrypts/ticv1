@@ -39,6 +39,7 @@ uniform float uScale;
 uniform float uOpacity;
 uniform vec2 uMouse;
 uniform float uMouseInteractive;
+uniform float uMaxIterations;
 out vec4 fragColor;
 
 void mainImage(out vec4 o, vec2 C) {
@@ -51,7 +52,7 @@ void mainImage(out vec4 o, vec2 C) {
   float i, d, z, T = iTime * uSpeed * uDirection;
   vec3 O, p, S;
 
-  for (vec2 r = iResolution.xy, Q; ++i < 60.; O += o.w/d*o.xyz) {
+  for (vec2 r = iResolution.xy, Q; ++i < uMaxIterations; O += o.w/d*o.xyz) {
     p = z*normalize(vec3(C-.5*r,r.y)); 
     p.z -= 4.; 
     S = p;
@@ -105,12 +106,16 @@ const Plasma: React.FC<PlasmaProps> = ({
     const useCustomColor = color ? 1.0 : 0.0;
     const customColorRgb = color ? hexToRgb(color) : [1, 1, 1];
     const directionMultiplier = direction === "reverse" ? -1.0 : 1.0;
+    
+    // Detect mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     const renderer = new Renderer({
       webgl: 2,
       alpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.5), // Reduce DPR for better performance
+      dpr: isMobile ? Math.min(window.devicePixelRatio || 1, 1) : Math.min(window.devicePixelRatio || 1, 1.5), // Lower DPR on mobile
     });
 
     const gl = renderer.gl;
@@ -134,7 +139,8 @@ const Plasma: React.FC<PlasmaProps> = ({
         uScale: { value: scale },
         uOpacity: { value: opacity },
         uMouse: { value: new Float32Array([0, 0]) },
-        uMouseInteractive: { value: mouseInteractive ? 1.0 : 0.0 },
+        uMouseInteractive: { value: (mouseInteractive && !isMobile && !isTouchDevice) ? 1.0 : 0.0 },
+        uMaxIterations: { value: isMobile ? 40.0 : 60.0 }, // Reduce iterations on mobile
       },
     });
 
@@ -158,7 +164,8 @@ const Plasma: React.FC<PlasmaProps> = ({
       }, 16); // ~60fps for mouse updates
     };
 
-    if (mouseInteractive) {
+    // Disable mouse interaction on mobile/touch devices to prevent flickering
+    if (mouseInteractive && !isMobile && !isTouchDevice) {
       containerRef.current.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
 
@@ -179,7 +186,7 @@ const Plasma: React.FC<PlasmaProps> = ({
 
     let raf = 0;
     let lastFrameTime = 0;
-    const targetFPS = 30; // Reduce from 60fps to 30fps
+    const targetFPS = isMobile ? 20 : 30; // Lower FPS on mobile to prevent flickering
     const frameInterval = 1000 / targetFPS;
     const t0 = performance.now();
     
@@ -218,7 +225,7 @@ const Plasma: React.FC<PlasmaProps> = ({
       if (mouseMoveTimeout) {
         clearTimeout(mouseMoveTimeout);
       }
-      if (mouseInteractive && containerRef.current) {
+      if (mouseInteractive && !isMobile && !isTouchDevice && containerRef.current) {
         containerRef.current.removeEventListener("mousemove", handleMouseMove);
       }
       try {
@@ -229,7 +236,7 @@ const Plasma: React.FC<PlasmaProps> = ({
     };
   }, [color, direction, mouseInteractive, opacity, scale, speed]);
 
-  return <div ref={containerRef} className="w-full h-full relative overflow-hidden" />;
+  return <div ref={containerRef} className="w-full h-full relative overflow-hidden" style={{ willChange: 'auto' }} />;
 };
 
 export default Plasma;
