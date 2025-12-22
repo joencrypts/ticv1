@@ -393,7 +393,7 @@ const Apply = () => {
                       id="pitch"
                       value={formData.pitch}
                       onChange={(e) => updateFormData("pitch", e.target.value)}
-                      placeholder="Briefly describe what you're building..."
+                      placeholder="Briefly describe what building..."
                       className="bg-transparent border border-white/20 rounded-none focus-visible:ring-0 focus-visible:border-white transition-colors min-h-[120px] sm:min-h-[150px] resize-none p-3 sm:p-4 text-sm"
                     />
                   </div>

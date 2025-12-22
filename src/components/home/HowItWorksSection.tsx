@@ -22,7 +22,7 @@ const HowItWorksSection = () => {
             <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white font-display">02</div>
             <div>
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Get Access</h3>
-              <p className="text-base sm:text-lg text-gray-400 font-light">You're onboarded to the right tier.</p>
+              <p className="text-base sm:text-lg text-gray-400 font-light">You are onboarded to the right tier.</p>
             </div>
           </div>
 

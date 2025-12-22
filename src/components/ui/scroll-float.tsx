@@ -49,6 +49,16 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
 
     const charElements = el.querySelectorAll('.inline-block');
 
+    // Fallback: Ensure text is visible after a delay if animation doesn't trigger
+    const fallbackTimeout = setTimeout(() => {
+      gsap.set(charElements, {
+        opacity: 1,
+        yPercent: 0,
+        scaleY: 1,
+        scaleX: 1,
+      });
+    }, 2000);
+
     // On mobile, set initial visibility and use simpler animation
     if (isMobile) {
       // Set text visible immediately on mobile
@@ -84,12 +94,21 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
       );
 
       return () => {
+        clearTimeout(fallbackTimeout);
         mobileAnimation.scrollTrigger?.kill();
         mobileAnimation.kill();
       };
     }
 
     // Desktop animation with full scroll effect
+    // Set initial state to visible as fallback
+    gsap.set(charElements, {
+      opacity: 1,
+      yPercent: 0,
+      scaleY: 1,
+      scaleX: 1,
+    });
+
     const scrollTrigger = gsap.fromTo(
       charElements,
       {
@@ -113,12 +132,20 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
           scroller,
           start: scrollStart,
           end: scrollEnd,
-          scrub: true
+          scrub: true,
+          onEnter: () => {
+            clearTimeout(fallbackTimeout);
+          },
+          onEnterBack: () => {
+            clearTimeout(fallbackTimeout);
+          },
+          invalidateOnRefresh: true
         }
       }
     );
 
     return () => {
+      clearTimeout(fallbackTimeout);
       scrollTrigger.scrollTrigger?.kill();
       scrollTrigger.kill();
     };
@@ -126,7 +153,15 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
 
   return (
     <HeadingTag ref={containerRef} className={`overflow-visible sm:overflow-hidden ${containerClassName}`}>
-      <span className={`inline-block ${textClassName}`} style={{ WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>{splitText}</span>
+      <span 
+        className={`inline-block ${textClassName}`} 
+        style={{ 
+          WebkitBackgroundClip: 'text', 
+          backgroundClip: 'text'
+        }}
+      >
+        {splitText}
+      </span>
     </HeadingTag>
   );
 };

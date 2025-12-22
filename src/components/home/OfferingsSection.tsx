@@ -32,7 +32,7 @@ const OfferingsSection = () => {
             <div className="relative z-10">
               <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Explorer</h3>
               <p className="text-white/70 text-base sm:text-lg mb-6 sm:mb-8 min-h-[60px] sm:min-h-[80px] md:h-24">
-                Foundation manual and structured year planning. Self-serve access to our core frameworks.
+                Foundation manual and structured year planning. Self serve access to our core frameworks.
               </p>
               <div className="flex justify-start">
                 <InteractiveHoverButton className="w-full sm:w-auto text-sm sm:text-base">Apply Now</InteractiveHoverButton>
