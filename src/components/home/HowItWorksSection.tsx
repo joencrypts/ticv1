@@ -9,27 +9,27 @@ const HowItWorksSection = () => {
         
         <div className="space-y-10 sm:space-y-12 md:space-y-16">
           {/* Step 1 */}
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 group" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+          <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 group text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
             <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white font-display">01</div>
-            <div className="flex-1">
+            <div>
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Apply</h3>
               <p className="text-base sm:text-lg text-gray-400 font-light">Your application is reviewed.</p>
             </div>
           </div>
 
           {/* Step 2 */}
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 group" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+          <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 group text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
             <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white font-display">02</div>
-            <div className="flex-1">
+            <div>
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Get Access</h3>
               <p className="text-base sm:text-lg text-gray-400 font-light">You're onboarded to the right tier.</p>
             </div>
           </div>
 
           {/* Step 3 */}
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 group" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+          <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 group text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
             <div className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white font-display">03</div>
-            <div className="flex-1">
+            <div>
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">Execute</h3>
               <p className="text-base sm:text-lg text-gray-400 font-light">Use frameworks and planning tools to run the year.</p>
             </div>

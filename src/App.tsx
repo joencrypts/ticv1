@@ -13,7 +13,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 // Lazy load heavy components
-const RetroGrid = lazy(() => import("@/components/ui/retro-grid").then(m => ({ default: m.RetroGrid })));
+const LightRays = lazy(() => import("@/components/ui/light-rays").then(m => ({ default: m.default })));
 
 const queryClient = new QueryClient();
 
@@ -51,10 +51,16 @@ const App = () => {
       <TooltipProvider>
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1, overflow: 'hidden', backgroundColor: '#000000' }}>
           <Suspense fallback={null}>
-            <RetroGrid 
-              lightLineColor="white"
-              darkLineColor="white"
-              opacity={0.3}
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#ffffff"
+              raysSpeed={1.5}
+              lightSpread={0.8}
+              rayLength={1.2}
+              followMouse={true}
+              mouseInfluence={0.1}
+              noiseAmount={0.1}
+              distortion={0.05}
             />
           </Suspense>
         </div>
