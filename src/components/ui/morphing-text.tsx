@@ -134,12 +134,14 @@ const Texts: React.FC<Pick<MorphingTextProps, "texts" | "delay">> = ({ texts, de
   return (
     <>
       <span
-        className="absolute inset-x-0 top-1/2 -translate-y-1/2 m-auto inline-block w-full"
+        className="absolute inset-x-0 top-1/2 -translate-y-1/2 m-auto inline-block w-full overflow-visible"
         ref={text1Ref}
+        style={{ willChange: 'opacity, filter' }}
       />
       <span
-        className="absolute inset-x-0 top-1/2 -translate-y-1/2 m-auto inline-block w-full"
+        className="absolute inset-x-0 top-1/2 -translate-y-1/2 m-auto inline-block w-full overflow-visible"
         ref={text2Ref}
+        style={{ willChange: 'opacity, filter' }}
       />
     </>
   )
@@ -173,9 +175,10 @@ export const MorphingText: React.FC<MorphingTextProps> = ({
 }) => (
   <div
     className={cn(
-      "relative mx-auto w-full text-center leading-none font-bold [filter:url(#threshold)_blur(0.6px)]",
+      "relative mx-auto w-full text-center leading-none font-bold [filter:url(#threshold)_blur(0.6px)] overflow-visible",
       className
     )}
+    style={{ minHeight: 'inherit' }}
   >
     <Texts texts={texts} delay={delay} />
     <SvgFilters />
