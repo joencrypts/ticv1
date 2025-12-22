@@ -14,8 +14,8 @@ const WhatItIsSection = () => {
           scrollStart="center bottom+=50%"
           scrollEnd="bottom bottom-=40%"
           stagger={0.03}
-          containerClassName="text-center px-2"
-          textClassName="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-body tracking-wide text-center bg-[linear-gradient(110deg,#939393,45%,#ffffff,55%,#939393)] bg-[length:200%_100%] animate-shine bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+          containerClassName="text-center px-2 min-h-[60px] sm:min-h-[80px]"
+          textClassName="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-body tracking-wide text-center bg-[linear-gradient(110deg,#939393,45%,#ffffff,55%,#939393)] bg-[length:200%_100%] animate-shine bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
         >
           What is TIC
         </ScrollFloat>

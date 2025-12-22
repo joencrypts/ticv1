@@ -45,9 +45,51 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
     if (!el) return;
 
     const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
+    const isMobile = window.innerWidth < 768;
 
     const charElements = el.querySelectorAll('.inline-block');
 
+    // On mobile, set initial visibility and use simpler animation
+    if (isMobile) {
+      // Set text visible immediately on mobile
+      gsap.set(charElements, {
+        opacity: 1,
+        yPercent: 0,
+        scaleY: 1,
+        scaleX: 1,
+      });
+      
+      // Optional: Simple fade-in animation on mobile (but text is already visible)
+      const mobileAnimation = gsap.fromTo(
+        charElements,
+        {
+          opacity: 0.3,
+          yPercent: 10,
+        },
+        {
+          opacity: 1,
+          yPercent: 0,
+          duration: 0.6,
+          ease: 'power2.out',
+          stagger: stagger * 1.5,
+          scrollTrigger: {
+            trigger: el,
+            scroller,
+            start: 'top 85%',
+            end: 'top 60%',
+            toggleActions: 'play none none none',
+            once: true,
+          }
+        }
+      );
+
+      return () => {
+        mobileAnimation.scrollTrigger?.kill();
+        mobileAnimation.kill();
+      };
+    }
+
+    // Desktop animation with full scroll effect
     const scrollTrigger = gsap.fromTo(
       charElements,
       {
@@ -83,8 +125,8 @@ const ScrollFloat: React.FC<ScrollFloatProps> = ({
   }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
-    <HeadingTag ref={containerRef} className={`overflow-hidden ${containerClassName}`}>
-      <span className={`inline-block ${textClassName}`}>{splitText}</span>
+    <HeadingTag ref={containerRef} className={`overflow-visible sm:overflow-hidden ${containerClassName}`}>
+      <span className={`inline-block ${textClassName}`} style={{ WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>{splitText}</span>
     </HeadingTag>
   );
 };
