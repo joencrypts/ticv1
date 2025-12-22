@@ -186,32 +186,83 @@ const Plasma: React.FC<PlasmaProps> = ({
 
     let raf = 0;
     let lastFrameTime = 0;
+    let isScrolling = false;
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
+    let scrollEndTimeout: ReturnType<typeof setTimeout> | null = null;
     const targetFPS = isMobile ? 20 : 30; // Lower FPS on mobile to prevent flickering
-    const frameInterval = 1000 / targetFPS;
+    const scrollFPS = isMobile ? 10 : 20; // Even lower FPS during scroll
+    let currentFPS = targetFPS;
     const t0 = performance.now();
+    
+    // Handle scroll events to reduce rendering during scroll
+    const handleScrollStart = () => {
+      if (isMobile) {
+        isScrolling = true;
+        currentFPS = scrollFPS;
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = null;
+        }
+      }
+    };
+    
+    const handleScrollEnd = () => {
+      if (isMobile) {
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = null;
+        }
+        scrollTimeout = setTimeout(() => {
+          isScrolling = false;
+          currentFPS = targetFPS;
+          scrollTimeout = null;
+        }, 150);
+      }
+    };
+    const handleScroll = () => {
+      if (isMobile) {
+        handleScrollStart();
+        if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+        scrollEndTimeout = setTimeout(() => {
+          handleScrollEnd();
+          scrollEndTimeout = null;
+        }, 100);
+      }
+    };
+    
+    if (isMobile) {
+      window.addEventListener('touchstart', handleScrollStart, { passive: true });
+      window.addEventListener('touchmove', handleScrollStart, { passive: true });
+      window.addEventListener('touchend', handleScrollEnd, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
     
     const loop = (t: number) => {
       const elapsed = t - lastFrameTime;
+      const currentInterval = 1000 / currentFPS;
       
-      if (elapsed >= frameInterval) {
-        const timeValue = (t - t0) * 0.001;
+      if (elapsed >= currentInterval) {
+        // Skip rendering during active scroll on mobile to prevent flickering
+        if (!isScrolling || !isMobile) {
+          const timeValue = (t - t0) * 0.001;
 
-        if (direction === "pingpong") {
-          const pingpongDuration = 10;
-          const segmentTime = timeValue % pingpongDuration;
-          const isForward = Math.floor(timeValue / pingpongDuration) % 2 === 0;
-          const u = segmentTime / pingpongDuration;
-          const smooth = u * u * (3 - 2 * u);
-          const pingpongTime = isForward ? smooth * pingpongDuration : (1 - smooth) * pingpongDuration;
-          (program.uniforms.uDirection as any).value = 1.0;
-          (program.uniforms.iTime as any).value = pingpongTime;
-        } else {
-          (program.uniforms.uDirection as any).value = directionMultiplier;
-          (program.uniforms.iTime as any).value = timeValue;
+          if (direction === "pingpong") {
+            const pingpongDuration = 10;
+            const segmentTime = timeValue % pingpongDuration;
+            const isForward = Math.floor(timeValue / pingpongDuration) % 2 === 0;
+            const u = segmentTime / pingpongDuration;
+            const smooth = u * u * (3 - 2 * u);
+            const pingpongTime = isForward ? smooth * pingpongDuration : (1 - smooth) * pingpongDuration;
+            (program.uniforms.uDirection as any).value = 1.0;
+            (program.uniforms.iTime as any).value = pingpongTime;
+          } else {
+            (program.uniforms.uDirection as any).value = directionMultiplier;
+            (program.uniforms.iTime as any).value = timeValue;
+          }
+
+          renderer.render({ scene: mesh });
         }
-
-        renderer.render({ scene: mesh });
-        lastFrameTime = t - (elapsed % frameInterval);
+        lastFrameTime = t - (elapsed % currentInterval);
       }
       
       raf = requestAnimationFrame(loop);
@@ -225,6 +276,18 @@ const Plasma: React.FC<PlasmaProps> = ({
       if (mouseMoveTimeout) {
         clearTimeout(mouseMoveTimeout);
       }
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      if (scrollEndTimeout) {
+        clearTimeout(scrollEndTimeout);
+      }
+      if (isMobile) {
+        window.removeEventListener('touchstart', handleScrollStart);
+        window.removeEventListener('touchmove', handleScrollStart);
+        window.removeEventListener('touchend', handleScrollEnd);
+        window.removeEventListener('scroll', handleScroll);
+      }
       if (mouseInteractive && !isMobile && !isTouchDevice && containerRef.current) {
         containerRef.current.removeEventListener("mousemove", handleMouseMove);
       }
@@ -236,7 +299,7 @@ const Plasma: React.FC<PlasmaProps> = ({
     };
   }, [color, direction, mouseInteractive, opacity, scale, speed]);
 
-  return <div ref={containerRef} className="w-full h-full relative overflow-hidden" style={{ willChange: 'auto' }} />;
+  return <div ref={containerRef} className="w-full h-full relative overflow-hidden" style={{ willChange: 'auto', transform: 'translateZ(0)', backfaceVisibility: 'hidden' }} />;
 };
 
 export default Plasma;
