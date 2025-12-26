@@ -491,7 +491,7 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 items.map((it, idx) => (
                   <li className="sm-panel-itemWrap relative overflow-hidden leading-none" key={it.label + idx}>
                     <a
-                      className="sm-panel-item relative text-black font-semibold text-[2.5rem] sm:text-[3rem] md:text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.2em] sm:pr-[1.4em]"
+                      className="sm-panel-item relative text-black font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[3.5em] sm:pr-[4em] whitespace-nowrap"
                       href={it.link}
                       aria-label={it.ariaLabel}
                       data-index={idx + 1}
@@ -504,7 +504,7 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 ))
               ) : (
                 <li className="sm-panel-itemWrap relative overflow-hidden leading-none" aria-hidden="true">
-                  <span className="sm-panel-item relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]">
+                  <span className="sm-panel-item relative text-black font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[4em] whitespace-nowrap">
                     <span className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
                       No items
                     </span>
@@ -576,13 +576,14 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-socials-link:hover { color: var(--sm-accent, #C0C0C0); }
 .sm-scope .sm-panel-title { margin: 0; font-size: 1rem; font-weight: 600; color: #000; text-transform: uppercase; }
 .sm-scope .sm-panel-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-.sm-scope .sm-panel-item { position: relative; color: #000; font-weight: 600; font-size: 2.5rem; cursor: pointer; line-height: 1; letter-spacing: -2px; text-transform: uppercase; transition: background 0.25s, color 0.25s; display: inline-block; text-decoration: none; padding-right: 1.2em; }
-@media (min-width: 640px) { .sm-scope .sm-panel-item { font-size: 3rem; padding-right: 1.3em; } }
-@media (min-width: 768px) { .sm-scope .sm-panel-item { font-size: 4rem; padding-right: 1.4em; } }
+.sm-scope .sm-panel-item { position: relative; color: #000; font-weight: 600; font-size: 1.5rem; cursor: pointer; line-height: 1; letter-spacing: -2px; text-transform: uppercase; transition: background 0.25s, color 0.25s; display: inline-block; text-decoration: none; padding-right: 3.5em; white-space: nowrap; }
+@media (min-width: 640px) { .sm-scope .sm-panel-item { font-size: 1.875rem; padding-right: 4em; } }
+@media (min-width: 768px) { .sm-scope .sm-panel-item { font-size: 2.25rem; padding-right: 4em; } }
+@media (min-width: 1024px) { .sm-scope .sm-panel-item { font-size: 3rem; padding-right: 4em; } }
 .sm-scope .sm-panel-itemLabel { display: inline-block; will-change: transform; transform-origin: 50% 100%; }
 .sm-scope .sm-panel-item:hover { color: var(--sm-accent, #C0C0C0); }
 .sm-scope .sm-panel-list[data-numbering] { counter-reset: smItem; }
-.sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 0.1em; right: 3.2em; font-size: 18px; font-weight: 400; color: var(--sm-accent, #C0C0C0); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
+.sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 50%; transform: translateY(-50%); right: 0.5em; font-size: 0.75em; font-weight: 400; color: var(--sm-accent, #C0C0C0); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
 @media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
 @media (max-width: 640px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
       `}</style>
