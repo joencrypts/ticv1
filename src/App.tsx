@@ -7,6 +7,7 @@ import { lazy, Suspense, useEffect } from "react";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Login from "./pages/Login";
+import Membership from "./pages/Membership";
 import NotFound from "./pages/NotFound";
 import { initToolbar } from '@21st-extension/toolbar';
 import AOS from 'aos';
@@ -70,7 +71,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/membership" element={<Membership />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

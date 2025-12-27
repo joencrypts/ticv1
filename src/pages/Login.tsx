@@ -5,7 +5,6 @@ import Footer from "@/components/layout/Footer";
 import { ShineBorder } from "@/components/ui/shine-border";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import Spline from '@splinetool/react-spline';
 import { ScrollProgress } from "@/components/ui/scroll-progress";
