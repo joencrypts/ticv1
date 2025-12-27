@@ -166,7 +166,7 @@ const Membership = () => {
         </section>
 
         {/* Blank section after hero */}
-        <section ref={nextSectionRef} className="relative w-full min-h-screen bg-transparent" style={{ border: '1cm solid #000000' }}>
+        <section ref={nextSectionRef} className="relative w-full min-h-screen bg-transparent">
           {/* Empty section for now */}
         </section>
       </main>
