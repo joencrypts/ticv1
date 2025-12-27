@@ -3,6 +3,7 @@ import StaggeredMenu, { StaggeredMenuItem, StaggeredMenuSocialItem } from "./Sta
 const menuItems: StaggeredMenuItem[] = [
   { label: "Home", ariaLabel: "Go to home page", link: "/" },
   { label: "About Us", ariaLabel: "Learn about us", link: "/about" },
+  { label: "Membership", ariaLabel: "View membership", link: "/membership" },
 ];
 
 const socialItems: StaggeredMenuSocialItem[] = [

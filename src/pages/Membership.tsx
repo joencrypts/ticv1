@@ -24,7 +24,10 @@ const Membership = () => {
   const [showTitle, setShowTitle] = useState(false);
   const [showExplore, setShowExplore] = useState(true);
   const [showExploreButton, setShowExploreButton] = useState(false);
+  const [canvasOpacity, setCanvasOpacity] = useState(1);
+  const [fadeProgress, setFadeProgress] = useState(0); // 0 to 1, controls bottom-to-top fade
   const nextSectionRef = useRef<HTMLElement>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,6 +49,30 @@ const Membership = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setShowExplore(false);
+          
+          // Calculate fade based on scroll position
+          if (heroSectionRef.current) {
+            const heroRect = heroSectionRef.current.getBoundingClientRect();
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const heroBottom = heroRect.bottom + scrollTop;
+            const heroHeight = heroRect.height;
+            
+            // If scrolled past the hero section
+            if (scrollTop > heroBottom - heroHeight) {
+              // Calculate fade progress (0 to 1)
+              const scrollPastHero = scrollTop - (heroBottom - heroHeight);
+              const fadeDistance = heroHeight; // Fade over one hero height
+              const progress = Math.min(scrollPastHero / fadeDistance, 1);
+              
+              setFadeProgress(progress);
+              setCanvasOpacity(1 - progress);
+            } else {
+              // Scrolled back up to hero section
+              setFadeProgress(0);
+              setCanvasOpacity(1);
+            }
+          }
+          
           ticking = false;
         });
         ticking = true;
@@ -53,6 +80,7 @@ const Membership = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -78,7 +106,7 @@ const Membership = () => {
       
       <main className="flex flex-col w-full relative z-10">
         {/* Hero Section with 3D Spline */}
-        <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <section ref={heroSectionRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden">
 
           {/* Spline 3D Object - Contained within hero section */}
           <div 
@@ -96,8 +124,10 @@ const Membership = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              willChange: 'transform',
-              transform: 'translateZ(0)'
+              willChange: 'transform, opacity',
+              transform: 'translateZ(0)',
+              opacity: canvasOpacity,
+              transition: 'opacity 0.3s ease-out'
             }}
             className="spline-wrapper"
           >
@@ -111,7 +141,10 @@ const Membership = () => {
                   pointerEvents: 'none',
                   transform: 'scale(1.8) translateZ(0)',
                   transformOrigin: 'center center',
-                  willChange: 'transform'
+                  willChange: 'transform',
+                  WebkitMaskImage: `linear-gradient(to top, transparent ${fadeProgress * 50}%, rgba(0,0,0,1) ${fadeProgress * 50 + 10}%, rgba(0,0,0,1) ${100 - fadeProgress * 50 - 10}%, transparent ${100 - fadeProgress * 50}%)`,
+                  maskImage: `linear-gradient(to top, transparent ${fadeProgress * 50}%, rgba(0,0,0,1) ${fadeProgress * 50 + 10}%, rgba(0,0,0,1) ${100 - fadeProgress * 50 - 10}%, transparent ${100 - fadeProgress * 50}%)`,
+                  transition: 'mask-image 0.3s ease-out, -webkit-mask-image 0.3s ease-out'
                 }}
                 className="spline-container"
               >
