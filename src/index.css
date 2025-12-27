@@ -80,12 +80,12 @@
     --glass-border: 0 0% 20% / 0.2;
     --glass-highlight: 0 0% 100% / 0.1;
     --glass-blur: 10px;
-
+    
     /* Gradients (Minimal) */
     --gradient-gold: linear-gradient(135deg, hsl(0 0% 100%), hsl(0 0% 80%)); /* White/Silver gradient */
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 10%), hsl(0 0% 0%));
     --gradient-glass: linear-gradient(135deg, hsl(var(--glass-highlight)), transparent);
-
+    
     --shadow-glow: 0 0 40px hsl(0 0% 100% / 0.1);
     --shadow-card: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
     --shadow-subtle: 0 4px 20px hsl(0 0% 0% / 0.2);
@@ -207,12 +207,12 @@
   .font-number {
     font-family: 'Times New Roman', Times, serif;
   }
-
+  
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-
+  
   /* Hide scrollbar for IE, Edge and Firefox */
   .no-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */

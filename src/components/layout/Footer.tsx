@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8">
         <div className="text-center md:text-left order-2 md:order-1">
           <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-1 sm:mb-2">The Incite Crew</h3>
-        </div>
+          </div>
           
         <div className="flex items-center gap-4 sm:gap-6 order-1 md:order-2">
           <a href="#" className="text-white/60 hover:text-white transition-colors" aria-label="LinkedIn">

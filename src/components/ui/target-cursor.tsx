@@ -87,7 +87,7 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
 
     let lastTickerTime = 0;
     const tickerInterval = 16; // ~60fps max
-    
+
     const tickerFn = () => {
       const now = performance.now();
       if (now - lastTickerTime < tickerInterval) return;

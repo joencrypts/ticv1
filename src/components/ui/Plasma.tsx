@@ -155,11 +155,11 @@ const Plasma: React.FC<PlasmaProps> = ({
       
       mouseMoveTimeout = setTimeout(() => {
         const rect = containerRef.current!.getBoundingClientRect();
-        mousePos.current.x = e.clientX - rect.left;
-        mousePos.current.y = e.clientY - rect.top;
-        const mouseUniform = program.uniforms.uMouse.value as Float32Array;
-        mouseUniform[0] = mousePos.current.x;
-        mouseUniform[1] = mousePos.current.y;
+      mousePos.current.x = e.clientX - rect.left;
+      mousePos.current.y = e.clientY - rect.top;
+      const mouseUniform = program.uniforms.uMouse.value as Float32Array;
+      mouseUniform[0] = mousePos.current.x;
+      mouseUniform[1] = mousePos.current.y;
         mouseMoveTimeout = null;
       }, 16); // ~60fps for mouse updates
     };
@@ -244,23 +244,23 @@ const Plasma: React.FC<PlasmaProps> = ({
       if (elapsed >= currentInterval) {
         // Skip rendering during active scroll on mobile to prevent flickering
         if (!isScrolling || !isMobile) {
-          const timeValue = (t - t0) * 0.001;
+      const timeValue = (t - t0) * 0.001;
 
-          if (direction === "pingpong") {
-            const pingpongDuration = 10;
-            const segmentTime = timeValue % pingpongDuration;
-            const isForward = Math.floor(timeValue / pingpongDuration) % 2 === 0;
-            const u = segmentTime / pingpongDuration;
-            const smooth = u * u * (3 - 2 * u);
-            const pingpongTime = isForward ? smooth * pingpongDuration : (1 - smooth) * pingpongDuration;
-            (program.uniforms.uDirection as any).value = 1.0;
-            (program.uniforms.iTime as any).value = pingpongTime;
-          } else {
-            (program.uniforms.uDirection as any).value = directionMultiplier;
-            (program.uniforms.iTime as any).value = timeValue;
-          }
+      if (direction === "pingpong") {
+        const pingpongDuration = 10;
+        const segmentTime = timeValue % pingpongDuration;
+        const isForward = Math.floor(timeValue / pingpongDuration) % 2 === 0;
+        const u = segmentTime / pingpongDuration;
+        const smooth = u * u * (3 - 2 * u);
+        const pingpongTime = isForward ? smooth * pingpongDuration : (1 - smooth) * pingpongDuration;
+        (program.uniforms.uDirection as any).value = 1.0;
+        (program.uniforms.iTime as any).value = pingpongTime;
+      } else {
+        (program.uniforms.uDirection as any).value = directionMultiplier;
+        (program.uniforms.iTime as any).value = timeValue;
+      }
 
-          renderer.render({ scene: mesh });
+      renderer.render({ scene: mesh });
         }
         lastFrameTime = t - (elapsed % currentInterval);
       }

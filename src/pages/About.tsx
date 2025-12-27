@@ -135,15 +135,15 @@ const About = () => {
                   <BorderBeam size={500} duration={25} delay={0} borderWidth={2} colorFrom="#ffffff" colorTo="#939393" />
                   <ul className="space-y-6 text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 font-light relative z-10">
                     <li className="flex items-start gap-6">
-                      <span className="text-gray-600 mt-2 font-display font-bold text-xl sm:text-2xl">01</span>
+                      <span className="text-gray-600 mt-2 font-number font-bold text-xl sm:text-2xl">01</span>
                       <span className="leading-tight">Define the right problem</span>
                     </li>
                     <li className="flex items-start gap-6">
-                      <span className="text-gray-600 mt-2 font-display font-bold text-xl sm:text-2xl">02</span>
+                      <span className="text-gray-600 mt-2 font-number font-bold text-xl sm:text-2xl">02</span>
                       <span className="leading-tight">Plan the year with clarity</span>
                     </li>
                     <li className="flex items-start gap-6">
-                      <span className="text-gray-600 mt-2 font-display font-bold text-xl sm:text-2xl">03</span>
+                      <span className="text-gray-600 mt-2 font-number font-bold text-xl sm:text-2xl">03</span>
                       <span className="leading-tight">Execute without noise or distraction</span>
                     </li>
                   </ul>
@@ -171,7 +171,7 @@ const About = () => {
                   <div className="relative rounded-xl bg-gradient-to-br from-black/50 via-black/40 to-black/50 p-6 sm:p-8 overflow-hidden backdrop-blur-sm border border-white/5">
                     <BorderBeam size={250} duration={20} delay={0} borderWidth={2} colorFrom="#ffffff" colorTo="#939393" />
                     <div className="relative z-10">
-                      <div className="text-gray-600 text-sm sm:text-base font-display font-bold uppercase tracking-wider mb-4">01</div>
+                      <div className="text-gray-600 text-sm sm:text-base font-number font-bold uppercase tracking-wider mb-4">01</div>
                       <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-400 mb-3">Internal Research</h3>
                       <p className="text-sm sm:text-base text-gray-500 font-light">All frameworks developed internally</p>
                     </div>
@@ -179,7 +179,7 @@ const About = () => {
                   <div className="relative rounded-xl bg-gradient-to-br from-black/50 via-black/40 to-black/50 p-6 sm:p-8 overflow-hidden backdrop-blur-sm border border-white/5">
                     <BorderBeam size={250} duration={20} delay={8} borderWidth={2} colorFrom="#ffffff" colorTo="#939393" />
                     <div className="relative z-10">
-                      <div className="text-gray-600 text-sm sm:text-base font-display font-bold uppercase tracking-wider mb-4">02</div>
+                      <div className="text-gray-600 text-sm sm:text-base font-number font-bold uppercase tracking-wider mb-4">02</div>
                       <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-400 mb-3">Refined Release</h3>
                       <p className="text-sm sm:text-base text-gray-500 font-light">Tools refined before release</p>
                     </div>
@@ -187,7 +187,7 @@ const About = () => {
                   <div className="relative rounded-xl bg-gradient-to-br from-black/50 via-black/40 to-black/50 p-6 sm:p-8 overflow-hidden backdrop-blur-sm border border-white/5">
                     <BorderBeam size={250} duration={20} delay={16} borderWidth={2} colorFrom="#ffffff" colorTo="#939393" />
                     <div className="relative z-10">
-                      <div className="text-gray-600 text-sm sm:text-base font-display font-bold uppercase tracking-wider mb-4">03</div>
+                      <div className="text-gray-600 text-sm sm:text-base font-number font-bold uppercase tracking-wider mb-4">03</div>
                       <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-400 mb-3">Controlled Access</h3>
                       <p className="text-sm sm:text-base text-gray-500 font-light">Intentional and selective access</p>
                     </div>
@@ -261,15 +261,15 @@ const About = () => {
                   <BorderBeam size={500} duration={25} delay={0} borderWidth={2} colorFrom="#ffffff" colorTo="#939393" />
                   <ul className="space-y-6 text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 font-light relative z-10">
                     <li className="flex items-start gap-6">
-                      <span className="text-gray-600 mt-2 text-xl">•</span>
+                      <span className="text-gray-600 mt-2 text-xl font-number">•</span>
                       <span>Are building real companies</span>
                     </li>
                     <li className="flex items-start gap-6">
-                      <span className="text-gray-600 mt-2 text-xl">•</span>
+                      <span className="text-gray-600 mt-2 text-xl font-number">•</span>
                       <span>Want structure over motivation</span>
                     </li>
                     <li className="flex items-start gap-6">
-                      <span className="text-gray-600 mt-2 text-xl">•</span>
+                      <span className="text-gray-600 mt-2 text-xl font-number">•</span>
                       <span>Value clear thinking over constant advice</span>
                     </li>
                   </ul>
@@ -391,13 +391,13 @@ const About = () => {
                     </p>
                     <div className="space-y-4 text-base sm:text-lg md:text-xl text-gray-400 font-light">
                       <p>
-                        <a href="mailto:contact@theincitecrew.com" className="text-gray-400 hover:text-gray-300 transition-all duration-300 underline decoration-gray-600 hover:decoration-gray-500 underline-offset-4">
+                        <a href="mailto:contact@theincitecrew.com" className="text-gray-400 hover:text-gray-300 transition-all duration-300 underline decoration-gray-600 hover:decoration-gray-500 underline-offset-4 font-number">
                           contact@theincitecrew.com
                         </a>
                       </p>
                       <p>
                         <a href="https://linkedin.com/company/theincitecrew" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-300 transition-all duration-300 underline decoration-gray-600 hover:decoration-gray-500 underline-offset-4">
-                          LinkedIn: The Incite Crew
+                          <span className="font-number">LinkedIn:</span> The Incite Crew
                         </a>
                       </p>
                     </div>
