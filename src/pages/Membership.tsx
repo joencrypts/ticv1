@@ -9,11 +9,11 @@ const Beams = lazy(() => import("@/components/ui/beams").then(m => ({ default: m
 const Spline = lazy(() => import('@splinetool/react-spline'));
 
 const Membership = () => {
-  // Memoize beam config to prevent unnecessary re-renders
+  // Memoize beam config to prevent unnecessary re-renders - reduced beamNumber for performance
   const beamConfig = useMemo(() => ({
     beamWidth: 3,
     beamHeight: 30,
-    beamNumber: 20,
+    beamNumber: 15, // Reduced from 20 for better performance
     speed: 3,
     noiseIntensity: 2.5,
     scale: 0.2,
@@ -24,10 +24,11 @@ const Membership = () => {
   const [showTitle, setShowTitle] = useState(false);
   const [showExplore, setShowExplore] = useState(true);
   const [showExploreButton, setShowExploreButton] = useState(false);
-  const [canvasOpacity, setCanvasOpacity] = useState(1);
   const [fadeProgress, setFadeProgress] = useState(0); // 0 to 1, controls bottom-to-top fade
   const nextSectionRef = useRef<HTMLElement>(null);
   const heroSectionRef = useRef<HTMLElement>(null);
+  const heroOffsetRef = useRef<number>(0);
+  const heroHeightRef = useRef<number>(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -44,33 +45,31 @@ const Membership = () => {
   }, []);
 
   useEffect(() => {
+    // Cache hero section dimensions once on mount
+    if (heroSectionRef.current) {
+      const rect = heroSectionRef.current.getBoundingClientRect();
+      heroOffsetRef.current = rect.top + window.scrollY;
+      heroHeightRef.current = rect.height;
+    }
+
     let ticking = false;
+    let lastScrollY = window.scrollY;
+    
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setShowExplore(false);
+          const currentScrollY = window.scrollY || document.documentElement.scrollTop;
           
-          // Calculate fade based on scroll position
-          if (heroSectionRef.current) {
-            const heroRect = heroSectionRef.current.getBoundingClientRect();
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const heroBottom = heroRect.bottom + scrollTop;
-            const heroHeight = heroRect.height;
+          // Only process if scroll difference is significant (reduces calculations)
+          if (Math.abs(currentScrollY - lastScrollY) > 2) {
+            lastScrollY = currentScrollY;
+            setShowExplore(false);
             
-            // If scrolled past the hero section
-            if (scrollTop > heroBottom - heroHeight) {
-              // Calculate fade progress (0 to 1)
-              const scrollPastHero = scrollTop - (heroBottom - heroHeight);
-              const fadeDistance = heroHeight; // Fade over one hero height
-              const progress = Math.min(scrollPastHero / fadeDistance, 1);
-              
-              setFadeProgress(progress);
-              setCanvasOpacity(1 - progress);
-            } else {
-              // Scrolled back up to hero section
-              setFadeProgress(0);
-              setCanvasOpacity(1);
-            }
+            // Calculate fade based on cached scroll position
+            const scrollPastHeroTop = Math.max(0, currentScrollY - heroOffsetRef.current);
+            const progress = Math.min(scrollPastHeroTop / heroHeightRef.current, 1);
+            
+            setFadeProgress(progress);
           }
           
           ticking = false;
@@ -89,7 +88,7 @@ const Membership = () => {
       <Navigation />
       
       {/* Beams Background - Full Page */}
-      <div style={{ width: '100%', height: '100%', position: 'fixed', top: 0, left: 0, zIndex: 1, pointerEvents: 'none', willChange: 'transform' }}>
+      <div style={{ width: '100%', height: '100%', position: 'fixed', top: 0, left: 0, zIndex: 1, pointerEvents: 'none', willChange: 'transform', contain: 'layout style paint', transform: 'translateZ(0)' }}>
         <Suspense fallback={null}>
           <Beams
             beamWidth={beamConfig.beamWidth}
@@ -106,7 +105,7 @@ const Membership = () => {
       
       <main className="flex flex-col w-full relative z-10">
         {/* Hero Section with 3D Spline */}
-        <section ref={heroSectionRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <section ref={heroSectionRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden" style={{ contain: 'layout style' }}>
 
           {/* Spline 3D Object - Contained within hero section */}
           <div 
@@ -126,8 +125,8 @@ const Membership = () => {
               justifyContent: 'center',
               willChange: 'transform, opacity',
               transform: 'translateZ(0)',
-              opacity: canvasOpacity,
-              transition: 'opacity 0.3s ease-out'
+              opacity: 1 - fadeProgress,
+              contain: 'layout style paint',
             }}
             className="spline-wrapper"
           >
@@ -142,9 +141,9 @@ const Membership = () => {
                   transform: 'scale(1.8) translateZ(0)',
                   transformOrigin: 'center center',
                   willChange: 'transform',
+                  contain: 'layout style paint',
                   WebkitMaskImage: `linear-gradient(to top, transparent ${fadeProgress * 50}%, rgba(0,0,0,1) ${fadeProgress * 50 + 10}%, rgba(0,0,0,1) ${100 - fadeProgress * 50 - 10}%, transparent ${100 - fadeProgress * 50}%)`,
                   maskImage: `linear-gradient(to top, transparent ${fadeProgress * 50}%, rgba(0,0,0,1) ${fadeProgress * 50 + 10}%, rgba(0,0,0,1) ${100 - fadeProgress * 50 - 10}%, transparent ${100 - fadeProgress * 50}%)`,
-                  transition: 'mask-image 0.3s ease-out, -webkit-mask-image 0.3s ease-out'
                 }}
                 className="spline-container"
               >
